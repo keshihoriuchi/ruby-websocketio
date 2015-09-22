@@ -1,31 +1,21 @@
+# coding: utf-8
+
 require 'websocket-eventmachine-server'
 require 'websocketio'
 
 class TestServer
-  attr_reader :port, :connected
+  attr_reader :port
 
-  def initialize
+  def initialize(&block)
     @port = 8080
-    @connected = false
 
     @thread = Thread.new do
       begin
         EM.run do
-          WebSocket::EventMachine::Server.start(:host => "0.0.0.0", :port => @port) do |ws|
-            ws.onopen do
-              @connected = true
-              puts "Client connected"
-            end
-
-            ws.onmessage do |msg, type|
-              puts "Received message: #{msg}"
-              ws.send msg, :type => type
-            end
-
-            ws.onclose do
-              puts "Client disconnected"
-            end
-          end
+          WebSocket::EventMachine::Server.start(
+            { host: "0.0.0.0", port: @port },
+            &block
+          )
         end
       rescue => e
         p e
