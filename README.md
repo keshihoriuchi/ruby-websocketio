@@ -1,5 +1,7 @@
 # WebSocketIO
 
+[![Build Status](https://travis-ci.org/keshihoriuchi/ruby-websocketio.svg)](https://travis-ci.org/keshihoriuchi/ruby-websocketio)
+
 WebSocketIO is a Ruby library. It aims to capacitate applications or libraries implemented with TCPSocket to communicate with WebSocket easily.
 
 WebSocketIO::Client is a object which can communicate through WebSocket with same interface as TCPSocket.
