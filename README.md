@@ -39,7 +39,7 @@ while c = websocket.read(1) do
 end
 ```
 
-### new(socket, handshake\_args) -> WebSocketIO::Client
+### new(socket, handshake\_args, options = {}) -> WebSocketIO::Client
 #### socket
 
 It requires a connected socket object.
@@ -50,6 +50,12 @@ When you want to connect over proxy, you may use [ruby-proxifier](https://github
 
 Parameters for WebSocket handshaking.
 This arg is given to `WebSocket::Handshake::Client.new` which is defined at [websocket-ruby](https://github.com/imanel/websocket-ruby#client-handshake).
+
+#### options[:write\_type]
+
+Type (opcode) of WebSocket frame sent by this object.
+[Keys in `FRAME\_TYPE` defined at websocket-ruby](https://github.com/imanel/websocket-ruby/blob/master/lib/websocket/frame/handler/handler03.rb#L9) are available.
+Default is `:text`.
 
 ## Implemented
 
