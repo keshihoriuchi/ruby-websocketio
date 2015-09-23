@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Takeshi Horiuchi"]
   spec.email         = ["keshihoriuchi@gmail.com"]
 
-  spec.summary       = 'IO interface on WebSocket.'
-  spec.description   = 'IO interface on WebSocket.'
+  spec.summary       = 'Communicate through WebSocket with same interface as TCPSocket.'
+  spec.description   = 'Communicate through WebSocket with same interface as TCPSocket.'
   spec.homepage      = "https://github.com/keshihoriuchi/ruby-websocketio"
   spec.license       = "MIT"
 
