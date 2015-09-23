@@ -54,7 +54,7 @@ This arg is given to `WebSocket::Handshake::Client.new` which is defined at [web
 #### options[:write\_type]
 
 Type (opcode) of WebSocket frame sent by this object.
-[Keys in `FRAME\_TYPE` defined at websocket-ruby](https://github.com/imanel/websocket-ruby/blob/master/lib/websocket/frame/handler/handler03.rb#L9) are available.
+[Keys in `FRAME_TYPES` defined at websocket-ruby](https://github.com/imanel/websocket-ruby/blob/master/lib/websocket/frame/handler/handler03.rb#L9) are available.
 Default is `:text`.
 
 ## Implemented
