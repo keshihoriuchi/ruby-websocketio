@@ -7,11 +7,14 @@ require 'forwardable'
 module WebSocketIO
   class Client
     extend Forwardable
+    attr_reader :socket
 
     def_delegators :@filtered_socket, :read, :getc
 
-    def initialize(socket, handshake_args)
-      @socket = socket
+    def initialize(socket, handshake_args, options = {})
+      @socket  = socket
+      @options = options
+
       @handshake = WebSocket::Handshake::Client.new(handshake_args)
       @socket.write @handshake.to_s
       until @handshake.finished? do
@@ -45,7 +48,7 @@ module WebSocketIO
     def send_frame(params)
       params = {
         data:    nil,
-        type:    :text,
+        type:    @options[:write_type] || :text,
         version: @handshake.version
       }.merge(params)
       frame = WebSocket::Frame::Outgoing::Client.new(params)

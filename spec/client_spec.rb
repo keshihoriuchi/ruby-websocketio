@@ -27,6 +27,20 @@ describe WebSocketIO::Client do
       subject
       expect(@connected).to be_truthy
     end
+
+    context 'when given options[:write_type]' do
+      let(:builder) do
+        Proc.new {|ws| ws.onmessage {|msg, type| @type = type }}
+      end
+      let(:client) { WebSocketIO::Client.new @socket, { url: url }, { write_type: :binary } }
+      subject { client.write('fuga') }
+
+      it "sends message whose type is options[:write_type]" do
+        subject
+        sleep 0.5 # TODO: wait for message received
+        expect(@type).to eq(:binary)
+      end
+    end
   end
 
   describe '#write' do
