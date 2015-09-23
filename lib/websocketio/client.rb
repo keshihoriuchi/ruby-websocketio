@@ -18,7 +18,7 @@ module WebSocketIO
         @handshake << @socket.getc
       end
 
-      # TODO: FilterIO assume that eof? isn't blocking method. But TCPSocket is.
+      # TODO: FilterIO assume that eof? isn't blocking method. But TCPSocket#eof? is.
       # See http://docs.ruby-lang.org/en/2.2.0/IO.html#method-i-eof-3F
       def @socket.eof?; closed?; end
       @filtered_socket = filter(@socket, @handshake.version)

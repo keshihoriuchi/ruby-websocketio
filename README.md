@@ -1,8 +1,10 @@
-# Websocketio
+# WebSocketIO
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/websocketio`. To experiment with that code, run `bin/console` for an interactive prompt.
+WebSocketIO is a Ruby library. It aims to capacitate applications or libraries implemented with TCPSocket to communicate with WebSocket easily.
 
-TODO: Delete this and the text above, and describe your gem
+WebSocketIO::Client is a object which can communicate through WebSocket with same interface as TCPSocket.
+
+Inspired by [websocket-stream](https://github.com/maxogden/websocket-stream) of Node.js
 
 ## Installation
 
@@ -22,18 +24,36 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'websocketio'
 
-## Development
+tcpsocket = TCPSocket.new('localhost', 8080)
+websocketio = WebSocketIO::Client.new(tcpsocket, url: 'ws://localhost:8080')
+websocketio.write 'How are you?'
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
+trap('INT') { websocketio.close }
+while c = websocket.read(1) do
+  STDOUT << c
+end
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+### new(socket, handshake\_args) -> WebSocketIO::Client
+#### socket
 
-## Contributing
+It requires a connected socket object.
+All sockets which have same interface as TCPSocket are available.
+When you want to connect over proxy, you may use [ruby-proxifier](https://github.com/samuelkadolph/ruby-proxifier). See `example` directory.
 
-1. Fork it ( https://github.com/[my-github-username]/websocketio/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+#### handshake\_args
+
+Parameters for WebSocket handshaking.
+This arg is given to `WebSocket::Handshake::Client.new` which is defined at [websocket-ruby](https://github.com/imanel/websocket-ruby#client-handshake).
+
+## Implemented
+
+* WebSocketIO::Client
+    * new
+    * write
+    * read
+    * getc
+    * close
